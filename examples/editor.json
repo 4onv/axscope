@@ -1,0 +1,25 @@
+{
+  "version": "2.6",
+  "ok": true,
+  "command": "snapshot",
+  "data": {
+    "app": "AXScope Synthetic Demo",
+    "complete": true,
+    "tree": {
+      "role": "window",
+      "name": "Storyboard",
+      "children": [
+        {
+          "role": "group",
+          "name": "Editor",
+          "children": [
+            {
+              "role": "button",
+              "name": "Save"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

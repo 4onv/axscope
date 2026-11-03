@@ -1,0 +1,7 @@
+node_modules/
+.axscope/
+*.tgz
+.env
+.env.*
+private-captures/
+*.log

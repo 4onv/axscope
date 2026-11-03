@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "targets": [
+    {
+      "id": "save-edit",
+      "role": "button",
+      "name": "Save"
+    }
+  ]
+}

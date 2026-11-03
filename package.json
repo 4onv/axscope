@@ -1,0 +1,37 @@
+{
+  "name": "@4onv/axscope",
+  "version": "0.1.0",
+  "description": "Check whether desktop automation targets stay unique across saved accessibility trees.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "axscope": "bin/axscope.mjs"
+  },
+  "exports": "./src/index.mjs",
+  "scripts": {
+    "test": "node --test",
+    "demo": "node bin/axscope.mjs demo",
+    "test:package": "node scripts/package-smoke.mjs"
+  },
+  "files": [
+    "bin",
+    "src",
+    "examples",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/4onv/axscope.git"
+  },
+  "keywords": [
+    "accessibility-tree",
+    "desktop-automation",
+    "regression-testing",
+    "agent-desktop"
+  ]
+}

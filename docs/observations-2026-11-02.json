@@ -1,0 +1,102 @@
+{
+  "researchDate": "2026-11-02",
+  "timezone": "America/Chicago",
+  "windowUtc": {
+    "startInclusive": "2026-11-02T06:00:00Z",
+    "endExclusive": "2026-11-03T06:00:00Z"
+  },
+  "archivedObservation": {
+    "type": "Community archive of the general Trending list",
+    "archiveCommitTime": "2026-11-02T08:58:02Z",
+    "url": "https://github.com/JackEasons/github-trending/blob/4602d3e6f2afb0f4eb3451dd1080be3205c53c44/2026/2026-11-02.md",
+    "countMeaning": "Cumulative star totals shown in this capture",
+    "selectedEntries": [
+      {
+        "repository": "lightpanda-io/browser",
+        "rank": 2,
+        "observedTotalStars": 40644
+      },
+      {
+        "repository": "milind-soni/OpenMausBot",
+        "rank": 5,
+        "observedTotalStars": 10902
+      },
+      {
+        "repository": "CopilotKit/OpenBot",
+        "rank": 12,
+        "observedTotalStars": 9748
+      }
+    ]
+  },
+  "rollingObservation": {
+    "type": "Direct public HTTP retrieval of GitHub daily Trending",
+    "retrievedAt": "2026-11-03T14:01:59Z",
+    "url": "https://github.com/trending?since=daily",
+    "entries": [
+      {
+        "rank": 1,
+        "repository": "thedotmack/claude-mem"
+      },
+      {
+        "rank": 2,
+        "repository": "vercel-labs/agent-desktop"
+      },
+      {
+        "rank": 3,
+        "repository": "max-sixty/worktrunk"
+      },
+      {
+        "rank": 4,
+        "repository": "JustVugg/colibri"
+      },
+      {
+        "rank": 5,
+        "repository": "mattpocock/skills"
+      },
+      {
+        "rank": 6,
+        "repository": "p-e-w/heretic"
+      },
+      {
+        "rank": 7,
+        "repository": "spotify/portal-ai-plugins"
+      },
+      {
+        "rank": 8,
+        "repository": "floci-io/floci"
+      },
+      {
+        "rank": 9,
+        "repository": "Usagi-org/ai-goofish-monitor"
+      },
+      {
+        "rank": 10,
+        "repository": "anomalyco/hex"
+      },
+      {
+        "rank": 11,
+        "repository": "D4Vinci/Scrapling"
+      },
+      {
+        "rank": 12,
+        "repository": "shiyu-coder/Kronos"
+      },
+      {
+        "rank": 13,
+        "repository": "Donchitos/Claude-Code-Game-Studios"
+      }
+    ]
+  },
+  "primaryActivity": [
+    {
+      "url": "https://github.com/vercel-labs/agent-desktop/pull/441",
+      "mergedAt": "2026-11-02T22:08:05Z",
+      "commit": "b4926b5670554b470b135e09e77577e258e7b7ae"
+    },
+    {
+      "url": "https://github.com/vercel-labs/agent-desktop/pull/442",
+      "mergedAt": "2026-11-02T22:08:06Z",
+      "commit": "0dd484fb22d4025ecc058d803adf47e2b81d29a6"
+    }
+  ]
+}
