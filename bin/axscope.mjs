@@ -2,6 +2,7 @@
 import { open, readFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 import { parseCapture, evaluate, suggest } from '@4onv/axscope';
+import { parseJsonInput } from '../src/json-input.mjs';
 
 const help = [
   'AXScope checks desktop automation targets across saved agent-desktop snapshots.',
@@ -39,9 +40,9 @@ async function readJson(path, limit) {
       size += bytesRead;
     }
     if (size > limit) throw new Error();
-    return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(buffer.subarray(0, size)));
+    return parseJsonInput(new TextDecoder('utf-8', { fatal: true }).decode(buffer.subarray(0, size)));
   } catch {
-    throw new Error('Input must be a readable regular file containing valid UTF-8 JSON within the documented size limit.');
+    throw new Error('Input must be a readable regular file containing unambiguous UTF-8 JSON within the documented limits; duplicate object keys are not allowed.');
   } finally {
     await handle?.close();
   }
@@ -112,7 +113,7 @@ async function main() {
     } });
   } catch { throw new Error('Invalid command options. See --help.'); }
   const { values, positionals } = args;
-  if (values.version) { console.log('0.1.0'); return; }
+  if (values.version) { console.log('0.1.1'); return; }
   if (values.help || positionals.length === 0) { console.log(help); return; }
   const [command, ...paths] = positionals;
   if (command !== 'suggest' && (values.role !== undefined || values.name !== undefined)) {

@@ -6,7 +6,9 @@ The CLI reads UTF-8 JSON files. A contract contains `version: 1` and a nonempty 
 
 Supply one JSON envelope with a string version such as `2.6`, `ok: true`, `command: "snapshot"`, and an object at `data.tree`. A node needs a role. The accessible name and children array are optional. The parser emits ordered records with role, nullable name, and a parent index. The root parent is -1. Mutating the raw capture or invoking a desktop command is outside the parser's work.
 
-The CLI enforces its file-size limit before JSON parsing and caps the actual file read. The library also limits node count, label bytes and depth. Invalid JSON, unsupported envelopes, invalid types, excessive size and malformed boolean evidence flags are input errors.
+The CLI enforces its file-size limit before JSON parsing and caps the actual file read. It rejects duplicate object keys at every level, including escaped spellings that decode to the same key. A second `complete` or `name` value therefore cannot silently overwrite earlier evidence. JSON nesting is bounded to 300 levels, which accommodates the supported 128 tree levels with their children arrays. Non-finite numeric values are rejected. Errors omit input contents.
+
+The library also limits node count, label bytes and depth. Invalid JSON, unsupported envelopes, invalid types, excessive size and malformed boolean evidence flags are input errors. The public library accepts already parsed objects; callers reading JSON themselves must reject duplicates before calling `parseCapture` or `evaluate`, since overwritten values cannot be recovered from an object.
 
 ## Completeness
 

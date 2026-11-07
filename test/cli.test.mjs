@@ -58,3 +58,26 @@ test('demo labels invented data and CLI rejects invalid commands and options', (
     assert.equal(cli(...args).status,2);
   }
 });
+
+test('duplicate completeness and selector keys cannot silently overwrite evidence', async t => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'axscope-duplicate-'));
+  t.after(async () => {
+    assert.equal(path.dirname(directory), path.resolve(tmpdir()));
+    assert.ok(path.basename(directory).startsWith('axscope-duplicate-'));
+    await rm(directory, { recursive: true, force: true, maxRetries: 3 });
+  });
+  const file = path.join(directory, 'ambiguous.json');
+  const capture = await readFile(fixture('editor'), 'utf8');
+  for (const duplicate of ['"complete": false, "complete": true', '"complete": false, "com\\u0070lete": true']) {
+    await writeFile(file, capture.replace(/"complete"\s*:\s*true/, duplicate));
+    const result = cli('check', fixture('global'), file, '--json');
+    assert.equal(result.status, 2, result.stderr);
+    assert.equal(result.stdout, '');
+    assert.match(result.stderr, /duplicate object keys/);
+  }
+  await writeFile(file, '{"version":1,"targets":[{"id":"save","role":"button","name":"Missing","name":"Save"}]}');
+  const contractResult = cli('check', file, fixture('editor'), '--json');
+  assert.equal(contractResult.status, 2);
+  assert.equal(contractResult.stdout, '');
+  assert.doesNotMatch(contractResult.stderr, /Missing/);
+});
