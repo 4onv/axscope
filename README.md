@@ -16,10 +16,10 @@ cd axscope
 node bin/axscope.mjs demo
 ```
 
-For an installed CLI, download `4onv-axscope-0.1.1.tgz` from the [GitHub release](https://github.com/4onv/axscope/releases/tag/v0.1.1) and run the commands below from the download directory. The archive contains both the CLI and the JavaScript library.
+For an installed CLI, download `4onv-axscope-0.1.2.tgz` from the [GitHub release](https://github.com/4onv/axscope/releases/tag/v0.1.2) and run the commands below from the download directory. The archive contains both the CLI and the JavaScript library.
 
 ```sh
-npm install -g ./4onv-axscope-0.1.1.tgz --offline --ignore-scripts --no-audit --no-fund
+npm install -g ./4onv-axscope-0.1.2.tgz --offline --ignore-scripts --no-audit --no-fund
 axscope demo
 ```
 
@@ -54,15 +54,17 @@ The first check returns exit `1` because the second capture has two Save buttons
 
 ## Use the library
 
-After installing the release archive as a local dependency, pass parsed JSON into the public API.
+After installing the release archive as a local dependency, parse capture and contract JSON with the public strict reader. It rejects duplicate object keys, including escaped duplicate spellings, before evidence can be discarded.
 
 ```js
-import { parseCapture, evaluate, suggest } from '@4onv/axscope';
+import { parseCapture, evaluate, suggest, parseJsonInput } from '@4onv/axscope';
 
-const captures = [beforeJson, afterJson].map(parseCapture);
-const matrix = evaluate(contractJson, captures);
+const captures = [beforeJsonText, afterJsonText].map(text => parseCapture(parseJsonInput(text)));
+const matrix = evaluate(parseJsonInput(contractJsonText), captures);
 const choices = suggest({ role: 'button', name: 'Save' }, captures);
 ```
+
+`parseJsonInput(text)` accepts a string of at most 4 MiB encoded as UTF-8 and at most 300 nested JSON containers. It returns objects with null prototypes and rejects duplicate keys, non-finite numbers and invalid syntax. Decode input bytes as UTF-8 with a fatal decoder first; the parser accepts text, not files. Use the CLI for its additional 128 KiB contract-file bound. This reader validates JSON structure; `parseCapture` and `evaluate` validate capture and contract meaning. Passing an object parsed elsewhere cannot recover duplicate keys already discarded by `JSON.parse`.
 
 Exact role and name comparisons preserve whitespace, case, and Unicode spelling. Targets need a nonblank accessible name. An ancestor must be unique across the entire presented tree, and the target must be a strict descendant. The check report emits contract IDs and counts. Suggestions disclose the matching ancestor names.
 

@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 import { open, readFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
-import { parseCapture, evaluate, suggest } from '@4onv/axscope';
-import { parseJsonInput } from '../src/json-input.mjs';
+import { parseCapture, evaluate, suggest, parseJsonInput } from '@4onv/axscope';
 
 const help = [
   'AXScope checks desktop automation targets across saved agent-desktop snapshots.',
@@ -113,7 +112,7 @@ async function main() {
     } });
   } catch { throw new Error('Invalid command options. See --help.'); }
   const { values, positionals } = args;
-  if (values.version) { console.log('0.1.1'); return; }
+  if (values.version) { console.log('0.1.2'); return; }
   if (values.help || positionals.length === 0) { console.log(help); return; }
   const [command, ...paths] = positionals;
   if (command !== 'suggest' && (values.role !== undefined || values.name !== undefined)) {

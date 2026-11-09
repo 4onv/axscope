@@ -26,6 +26,10 @@ try {
   assert.equal(demo.globalCheck.status, 'review');
   assert.equal(demo.suggestions.status, 'scopes-found');
   assert.equal(demo.scopedCheck.status, 'pass');
+  const library=path.join(prefix,'node_modules/@4onv/axscope/src/index.mjs');
+  const api=await import((await import('node:url')).pathToFileURL(library).href);
+  assert.equal(typeof api.parseJsonInput,'function');
+  assert.throws(()=>api.parseJsonInput('{"a":1,"a":2}'),/Invalid or ambiguous/);
   console.log('Packed CLI installed offline and completed the scope discovery demo.');
 } finally {
   assert.equal(path.dirname(directory), path.resolve(tmpdir()));

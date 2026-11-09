@@ -8,7 +8,7 @@ Supply one JSON envelope with a string version such as `2.6`, `ok: true`, `comma
 
 The CLI enforces its file-size limit before JSON parsing and caps the actual file read. It rejects duplicate object keys at every level, including escaped spellings that decode to the same key. A second `complete` or `name` value therefore cannot silently overwrite earlier evidence. JSON nesting is bounded to 300 levels, which accommodates the supported 128 tree levels with their children arrays. Non-finite numeric values are rejected. Errors omit input contents.
 
-The library also limits node count, label bytes and depth. Invalid JSON, unsupported envelopes, invalid types, excessive size and malformed boolean evidence flags are input errors. The public library accepts already parsed objects; callers reading JSON themselves must reject duplicates before calling `parseCapture` or `evaluate`, since overwritten values cannot be recovered from an object.
+The library also limits node count, label bytes and depth. Invalid JSON, unsupported envelopes, invalid types, excessive size and malformed boolean evidence flags are input errors. `parseJsonInput(text)` exposes the same strict JSON parser as the CLI: a UTF-8 byte length of at most 4 MiB, at most 300 nested containers, no duplicate decoded keys, and finite numbers only. It returns null-prototype objects. Decode bytes with a fatal UTF-8 decoder first. Use `parseCapture(parseJsonInput(captureText))` and `evaluate(parseJsonInput(contractText), captures)` to preserve ambiguous evidence as an input error. The parser does not enforce semantic capture/contract schemas or the CLI's separate 128 KiB contract limit. Already parsed objects remain accepted; overwritten keys cannot be recovered after `JSON.parse`.
 
 ## Completeness
 
