@@ -16,10 +16,10 @@ cd axscope
 node bin/axscope.mjs demo
 ```
 
-For an installed CLI, download `4onv-axscope-0.1.2.tgz` from the [GitHub release](https://github.com/4onv/axscope/releases/tag/v0.1.2) and run the commands below from the download directory. The archive contains both the CLI and the JavaScript library.
+For an installed CLI, download `4onv-axscope-0.1.3.tgz` from the [GitHub release](https://github.com/4onv/axscope/releases/tag/v0.1.3) and run the commands below from the download directory. The archive contains both the CLI and the JavaScript library.
 
 ```sh
-npm install -g ./4onv-axscope-0.1.2.tgz --offline --ignore-scripts --no-audit --no-fund
+npm install -g ./4onv-axscope-0.1.3.tgz --offline --ignore-scripts --no-audit --no-fund
 axscope demo
 ```
 

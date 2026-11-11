@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { constants } from 'node:fs';
 import { open, readFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 import { parseCapture, evaluate, suggest, parseJsonInput } from '@4onv/axscope';
@@ -27,7 +28,7 @@ function quoted(value) {
 async function readJson(path, limit) {
   let handle;
   try {
-    handle = await open(path, 'r');
+    handle = await open(path, constants.O_RDONLY | (constants.O_NONBLOCK ?? 0));
     const info = await handle.stat();
     if (!info.isFile() || info.size > limit) throw new Error();
     // A file may grow after stat. Cap the actual read too.
@@ -112,7 +113,7 @@ async function main() {
     } });
   } catch { throw new Error('Invalid command options. See --help.'); }
   const { values, positionals } = args;
-  if (values.version) { console.log('0.1.2'); return; }
+  if (values.version) { console.log('0.1.3'); return; }
   if (values.help || positionals.length === 0) { console.log(help); return; }
   const [command, ...paths] = positionals;
   if (command !== 'suggest' && (values.role !== undefined || values.name !== undefined)) {

@@ -16,6 +16,19 @@ const cli = (...args) => {
   return result;
 };
 
+test('a POSIX contract FIFO fails without waiting for a writer', { skip: process.platform === 'win32' }, async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'axscope-fifo-'));
+  try {
+    const fifo = path.join(directory, 'contract.json');
+    assert.equal(spawnSync('mkfifo', [fifo], { timeout: 5000 }).status, 0);
+    const result = cli('check', fifo, fixture('editor'));
+    assert.equal(result.status, 2);
+    assert.match(result.stderr, /regular file/);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
 test('check, suggest and recheck work through the installed command interface', () => {
   const captures = [fixture('editor'), fixture('with-preview')];
   const before = cli('check', fixture('global'), ...captures, '--json');
